@@ -1,52 +1,20 @@
-# FightCamp's Take Home Challenge 🥊
+## Exercise 1 Analysis
 
-Hey! Congratulations on making it to the next step in the interview process. We look forward to having you potentially join the FightCamp family!
+The problem for this exercise was the item price covering the phrase "One-Time Payment" when zooming in or zooming out extremely far.
+The reason I found for this was that a height of 22px was set for the Price Title's CSS, by removing this it would scale correctly with the value.
 
-The FightCamp challenge is an opportunity for you to demonstrate your problem solving skills, your perspective on code maintenance, and your communication style.
+## Exercise 2 Analysis
 
-## Expectations
+The problem for this exercise was, when zooming in on the page until one package-container was viewable per page, it would not be centered. The reason is the object's container was set to display: flex, but the attribute align-items wasn't set. When the attribute isn't set it defauls to stretch, which will attempt to fill the entire column with the block, but the block also had a max-width set. This meant that after if hit that max-width it would stop expanding and stay justified to the left. To fix this problem I added a new attribute to the container, align-items: center;, so that when the max-width was hit, it would still center the block.
 
-We have created a component which contains a few bugs and can be severely improved.
-There are 4 challenges that we would like you to complete. We have also included 1 BONUS challenge if you feel up to the task.
+## Exercise 3 Analysis
 
-### Time Allotment
-We understand that your time is valuable, and in order to respect your time we have designed the challenge to take about 1 hour. We are always improving our process, so if you have any suggestions please let us know.
+The problem for this exercise was a bug in the itemIncluded method that prevented the correct items from being crossed out. The issue in the method was broken into two parts. The first issue was in the first conditional of the method. It was checking that the item was a boolean value, but the item was an object that contained a boolean attribute. I modified that check to verify that the attribute, item.included, was a boolean and not the item itself. The second issue was that the method was comparing the included attribute on the item to a string false, but the attribute was already a boolean and so it was attempting to compare a boolean with a string of the boolean. To fix this I modified it to check the item's included attribute with the boolean false.
 
-### Project Submission
-Fork this repository.
+## Exercise 4 Analysis
 
-Solve the challenges.
+The problem for this exercise was to refactor the code in the Packages.vue file as I see fit to increase clarity and reusability. The first step I took in this was to abstract any code around each individual package block into a separate component. The next refactor was to remove unnecessary data. I noticed there were a lot of unused keys on the data that could be removed, so I checked all attributes from the package that were used and removed almost anything else. I noticed some keys in the data that weren't used but might be helpful to provide context, like the name key in the thumbnails. I left those in, because it would be difficult to understand which thumbnail it was referencing if not. After that I went through the data and cleaned up any stylistic issues I saw, like incorrect spacing for nested hashes. I then went through and removed all the css that wasn't being used. Any further refactors would be to the newly created component PackageBlock to abstract it out further into smaller components.
 
-Create a `README` with the following items:
+## Bonus
 
-* Description of the problem and how you solved it.
-* The reasoning behind your decisions.
-* Any other information you believe is necessary for us to know about the issue/solution.
-
-Try your best to keep a clean commit history so that we may best review your solutions.
-
-Please solve the 4 required challenges (and maybe the BONUS challenge) below. Once completed, email us a link to your forked GitHub repo.
-
-# The Exercises
-
-## 1. Screen Scaling Issue [easy]
-  When you run the Vue application you will notice on the screen three package columns. When scaling the screen down the elements within the package are no longer aligned (see image below). Notice the alignment of the ImagePresenter, titles, headers, items, and the payment information (prices do not reflect our actual pricing). Use `CSS` to fix the scaling issue so that when the screen scales down the packages and package information remain aligned. Explain the problem and solution in your `README`.
-
-  ![unaligned](./public/images/unaligned-packages.png)
-
-## 2. Mobile Package Centering [easy]
-If you scale the window down further (around 767px width), you will notice the single package is not centered with the title (see image below) of the page. Please use `CSS` to center the package.
-
-  ![off-center](./public/images/off-center-package.png)
-
-## 3. Included Items [easy]
-Fix the `itemIncluded` method so that is correctly applies the `packages-block-item-not-included` class.
-It should look like the screenshot below:
-
-![included-items](./public/images/included-items.png)
-
-## 4. Refactor [normal]
-  Refactor the `Packages.vue` code as you see fit to increase clarity and reusability. Explain your decisions in your `README`.
-
-## 5. BONUS [hard]
-  You might have noticed that the ImagePresenter is not correctly focusing on the clicked thumbnail images and making them the current image. This issue happens if you scroll down or resize the browser. Refer to the first and second screenshots for examples on how it should work/look. Without touching the `ImagePresenter.vue` code, fix the image selection issue and explain the problem.
+The problem for this exercise was that an image would not be selected and displayed in the larger view if the page had been scrolled or zoomed. This problem was caused by lazy-loading the ImagePresenter component. I fixed the issue by removing it, so now the images will always be displayed and selected when clicked. The lazy-component was removing all listeners after being triggered for the first time, so when the page was scrolled or resized the listeners were removed and clicking the image no longer did anything.
